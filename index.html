@@ -704,11 +704,9 @@ select.form-control {
             <div class="form-group">
                 <label for="configType">PROTOCOL TYPE</label>
                 <select id="configType" class="form-control" required>
-                    <option value="vmess">VMESS</option>
                      <option value="vless">VLESS</option>
                     <option value="trojan">TROJAN</option>
                     <option value="shadowsocks">SHADOWSOCKS</option>
-                     <option value="mix">MIX (ALL PROTOCOLS)</option>
                 </select>
             </div>
 
@@ -716,15 +714,15 @@ select.form-control {
                 <label for="formatType">FORMAT TYPE</label>
                 <select id="formatType" class="form-control" required>
                         <option value="singbox">SINGBOX</option>
-                    <option value="clash">Proxy_Provider CLASH</option>
                     <option value="v2ray">V2RAY Account</option>
+                    <option value="clash">Proxy_Provider CLASH</option>
                   <option value="nekobox">NEKOBOX</option>
                 </select>
             </div>
             
             <div class="form-group uuid-group">
                 <label for="uuid">UUID</label>
-                <input type="text" id="uuid" class="form-control" value="2bcfbfba-b446-4ad5-93ad-72af9e008f61" required>
+                <input type="text" id="uuid" class="form-control" value="fc60147e-76b8-4bc5-b691-90b2da79e3d2" required>
             </div>
             
             <div class="form-group">
@@ -747,17 +745,12 @@ select.form-control {
                 <label for="customBug">CUSTOM BUG</label>
                 <input type="text" id="customBug" class="form-control" placeholder="Example : BUG-WLG.COM, BUG-VIU.COM, BUG-ZOOM.COM">
                 <div class="select-info">Pisah Dengan Koma Jika Ingin Banyak BUG sekaligus</div>
-                <div class="select-info">contoh : ava.game.naver.com, quiz.vidio.com ,graph.instagram.com, zaintest.vuclip.com, support.zoom.us</div>
+                <div class="select-info">contoh : ava.game.naver.com, quiz.vidio.com ,graph.instagram.com, zaintest.vuclip.com, support.zoom.us,untuk wc domain aktif di domain balckwolf.dpdns.org</div>
             </div>
             
             <div class="form-group">
                 <label for="tls">TLS ENCRYPTION</label>
                 <select id="tls" class="form-control">
-                    <option value="true">port 443</option>
-                    <option value="false">port 80</option>
-                </select>
-            </div>
-            
                 <div class="form-row">
                     <div class="form-group">
                         <label for="country" style="font-weight: bold;">REGION FILTER</label>
@@ -818,7 +811,6 @@ select.form-control {
         </div>
     </div>
 </div>
-
 <footer class="footer">
     <div class="circuit-line circuit-line-1"></div>
     <div class="circuit-line circuit-line-2"></div>
@@ -846,14 +838,12 @@ select.form-control {
 
 <script>
     // Constants
-    const DEFAULT_PROXY_BANK_URL = 'https://raw.githubusercontent.com/xiyosenstore/hompage/refs/heads/main/ProxyList%20(1)%20(1).txt';
-    const PROXY_CHECK_API_URL = 'https://api.jb8fd7grgd.workers.dev/';
-    const PATH_PREFIX = 'Benxx-Project'; // Hardcoded path prefix
+    const DEFAULT_PROXY_BANK_URL = 'https://raw.githubusercontent.com/zerokit-769/testt/refs/heads/main/ProxyList%20(1).txt';
+    const PROXY_CHECK_API_URL = 'https://afrcloud.dpdns.org/${proxy.ip}:${proxy.port}';
     
       const MainDomains = [
         'blackshadow.dpdns.org',
-        'balckwolf.dpdns.org',
-        'ouzora.dpdns.org'
+        'balckwolf.dpdns.org'
     ];
 
     const CustomBugs = [];
@@ -901,7 +891,7 @@ async function checkProxyValidity(ip, port) {
         type: "none",
         scy: "zero",
         host: host,
-        path: `/${PATH_PREFIX}/${proxyHost}-${proxyPort}`,
+        path: `/${proxyHost}-${proxyPort}`,
         tls: tls ? "tls" : "none",
         sni: sni,
         fp: "randomized"
@@ -981,7 +971,7 @@ function generateClashVLESS(name, uuid, domain, host, sni, proxyHost, proxyPort,
   network: ws
   servername: ${sni}
   ws-opts:
-    path: /${PATH_PREFIX}/${proxyHost}-${proxyPort}
+    path: /${proxyHost}-${proxyPort}
     headers:
       Host: ${host}`;
 }
@@ -998,7 +988,7 @@ function generateClashTrojan(name, uuid, domain, host, sni, proxyHost, proxyPort
   network: ws
   sni: ${sni}
   ws-opts:
-    path: /${PATH_PREFIX}/${proxyHost}-${proxyPort}
+    path: /${proxyHost}-${proxyPort}
     headers:
       Host: ${host}`;
 }
@@ -1017,7 +1007,7 @@ function generateClashSS(name, uuid, domain, host, sni, proxyHost, proxyPort, tl
   plugin-opts:
     mode: websocket
     host: ${host}
-    path: /${PATH_PREFIX}/${proxyHost}-${proxyPort}
+    path: /${proxyHost}-${proxyPort}
     tls: ${tls}
     mux: false
     skip-cert-verify: true
@@ -1042,7 +1032,7 @@ function generateClashVMess(name, uuid, domain, host, sni, proxyHost, proxyPort,
   servername: ${sni}
   network: ws
   ws-opts:
-    path: /${PATH_PREFIX}/${proxyHost}-${proxyPort}
+    path: /${proxyHost}-${proxyPort}
     headers:
       Host: ${host}
   udp: true`;
@@ -1068,7 +1058,7 @@ function generateSingboxConfig(name, uuid, domain, host, sni, proxyHost, proxyPo
       },
       "transport": {
         "type": "ws",
-        "path": "/${PATH_PREFIX}/${proxyHost}-${proxyPort}",
+        "path": "/${proxyHost}-${proxyPort}",
         "headers": {
           "Host": "${host}"
         },
@@ -1092,7 +1082,7 @@ function generateSingboxConfig(name, uuid, domain, host, sni, proxyHost, proxyPo
       },
       "transport": {
         "type": "ws",
-        "path": "/${PATH_PREFIX}/${proxyHost}-${proxyPort}",
+        "path": "/${proxyHost}-${proxyPort}",
         "headers": {
           "Host": "${host}"
         },
@@ -1114,7 +1104,7 @@ function generateSingboxConfig(name, uuid, domain, host, sni, proxyHost, proxyPo
       },
       "transport": {
         "type": "ws",
-        "path": "/${PATH_PREFIX}/${proxyHost}-${proxyPort}",
+        "path": "/${proxyHost}-${proxyPort}",
         "headers": {
           "Host": "${host}"
         },
@@ -1130,7 +1120,7 @@ function generateSingboxConfig(name, uuid, domain, host, sni, proxyHost, proxyPo
       "method": "none",
       "password": "${uuid}",
       "plugin": "v2ray-plugin",
-      "plugin_opts": "mux=0;path=/${PATH_PREFIX}/${proxyHost}-${proxyPort};host=${host};tls=${tls ? '1' : '0'}"
+      "plugin_opts": "mux=0;path=/${proxyHost}-${proxyPort};host=${host};tls=${tls ? '1' : '0'}"
     }`;
     }
     
@@ -1157,7 +1147,7 @@ function generateSingboxxlConfig(name, uuid, domain, host, sni, proxyHost, proxy
       },
       "transport": {
         "type": "ws",
-        "path": "/${PATH_PREFIX}/${proxyHost}-${proxyPort}",
+        "path": "/${proxyHost}-${proxyPort}",
         "headers": {
           "Host": "${host}"
         }
@@ -1180,7 +1170,7 @@ function generateSingboxxlConfig(name, uuid, domain, host, sni, proxyHost, proxy
       },
       "transport": {
         "type": "ws",
-        "path": "/${PATH_PREFIX}/${proxyHost}-${proxyPort}",
+        "path": "/${proxyHost}-${proxyPort}",
         "headers": {
           "Host": "${host}"
         }
@@ -1201,7 +1191,7 @@ function generateSingboxxlConfig(name, uuid, domain, host, sni, proxyHost, proxy
       },
       "transport": {
         "type": "ws",
-        "path": "/${PATH_PREFIX}/${proxyHost}-${proxyPort}",
+        "path": "/${proxyHost}-${proxyPort}",
         "headers": {
           "Host": "${host}"
         }
@@ -1217,7 +1207,7 @@ function generateSingboxxlConfig(name, uuid, domain, host, sni, proxyHost, proxy
       "method": "none",
       "password": "${uuid}",
       "plugin": "v2ray-plugin",
-      "plugin_opts": "mux=0;path=/${PATH_PREFIX}/${proxyHost}-${proxyPort};host=${host};tls=${tls ? '1' : '0'}"
+      "plugin_opts": "mux=0;path=/${proxyHost}-${proxyPort};host=${host};tls=${tls ? '1' : '0'}"
     }`;
     }
     
@@ -1249,7 +1239,7 @@ function generateNekoboxConfig(name, uuid, domain, host, sni, proxyHost, proxyPo
           "Host": "${host}"
         },
         "max_early_data": 0,
-        "path": "/${PATH_PREFIX}/${proxyHost}-${proxyPort}",
+        "path": "/${proxyHost}-${proxyPort}",
         "type": "ws"
       },
       "type": "vless",
@@ -1273,7 +1263,7 @@ function generateNekoboxConfig(name, uuid, domain, host, sni, proxyHost, proxyPo
           "Host": "${host}"
         },
         "max_early_data": 0,
-        "path": "/${PATH_PREFIX}/${proxyHost}-${proxyPort}",
+        "path": "/${proxyHost}-${proxyPort}",
         "type": "ws"
       },
       "type": "trojan"
@@ -1313,7 +1303,7 @@ function generateNekoboxConfig(name, uuid, domain, host, sni, proxyHost, proxyPo
       "method": "none",
       "password": "${uuid}",
       "plugin": "v2ray-plugin",
-      "plugin_opts": "mux=0;path=/${PATH_PREFIX}/${proxyHost}-${proxyPort};host=${host};tls=${tls ? '1' : '0'}"
+      "plugin_opts": "mux=0;path=/${proxyHost}-${proxyPort};host=${host};tls=${tls ? '1' : '0'}"
     }`;
     }
     
@@ -1338,7 +1328,7 @@ function generatehusiConfig(name, uuid, domain, host, sni, proxyHost, proxyPort,
       },
       "transport": {
         "type": "ws",
-        "path": "/${PATH_PREFIX}/${proxyHost}-${proxyPort}",
+        "path": "/${proxyHost}-${proxyPort}",
         "headers": {
           "Host": "${host}"
         },
@@ -1362,7 +1352,7 @@ function generatehusiConfig(name, uuid, domain, host, sni, proxyHost, proxyPort,
       },
       "transport": {
         "type": "ws",
-        "path": "/${PATH_PREFIX}/${proxyHost}-${proxyPort}",
+        "path": "/${proxyHost}-${proxyPort}",
         "headers": {
           "Host": "${host}"
         },
@@ -1384,7 +1374,7 @@ function generatehusiConfig(name, uuid, domain, host, sni, proxyHost, proxyPort,
       },
       "transport": {
         "type": "ws",
-        "path": "/${PATH_PREFIX}/${proxyHost}-${proxyPort}",
+        "path": "/${proxyHost}-${proxyPort}",
         "headers": {
           "Host": "${host}"
         },
@@ -1400,7 +1390,7 @@ function generatehusiConfig(name, uuid, domain, host, sni, proxyHost, proxyPort,
       "method": "none",
       "password": "${uuid}",
       "plugin": "v2ray-plugin",
-      "plugin_opts": "mux=0;path=/${PATH_PREFIX}/${proxyHost}-${proxyPort};host=${host};tls=${tls ? '1' : '0'}"
+      "plugin_opts": "mux=0;path=/${proxyHost}-${proxyPort};host=${host};tls=${tls ? '1' : '0'}"
     }`;
     }
     
