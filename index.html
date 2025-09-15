@@ -708,6 +708,7 @@ select.form-control {
                      <option value="vless">VLESS</option>
                     <option value="trojan">TROJAN</option>
                     <option value="shadowsocks">SHADOWSOCKS</option>
+                     <option value="mix">MIX (ALL PROTOCOLS)</option>
                 </select>
             </div>
 
@@ -847,6 +848,7 @@ select.form-control {
     // Constants
     const DEFAULT_PROXY_BANK_URL = 'https://raw.githubusercontent.com/xiyosenstore/hompage/refs/heads/main/ProxyList%20(1)%20(1).txt';
     const PROXY_CHECK_API_URL = 'https://api.jb8fd7grgd.workers.dev/';
+    const PATH_PREFIX = 'Benxx-Project'; // Hardcoded path prefix
     
       const MainDomains = [
         'blackshadow.dpdns.org',
@@ -899,7 +901,7 @@ async function checkProxyValidity(ip, port) {
         type: "none",
         scy: "zero",
         host: host,
-        path: `/${proxyHost}-${proxyPort}`,
+        path: `/${PATH_PREFIX}/${proxyHost}-${proxyPort}`,
         tls: tls ? "tls" : "none",
         sni: sni,
         fp: "randomized"
@@ -979,7 +981,7 @@ function generateClashVLESS(name, uuid, domain, host, sni, proxyHost, proxyPort,
   network: ws
   servername: ${sni}
   ws-opts:
-    path: /${proxyHost}-${proxyPort}
+    path: /${PATH_PREFIX}/${proxyHost}-${proxyPort}
     headers:
       Host: ${host}`;
 }
@@ -996,7 +998,7 @@ function generateClashTrojan(name, uuid, domain, host, sni, proxyHost, proxyPort
   network: ws
   sni: ${sni}
   ws-opts:
-    path: /${proxyHost}-${proxyPort}
+    path: /${PATH_PREFIX}/${proxyHost}-${proxyPort}
     headers:
       Host: ${host}`;
 }
@@ -1015,7 +1017,7 @@ function generateClashSS(name, uuid, domain, host, sni, proxyHost, proxyPort, tl
   plugin-opts:
     mode: websocket
     host: ${host}
-    path: /${proxyHost}-${proxyPort}
+    path: /${PATH_PREFIX}/${proxyHost}-${proxyPort}
     tls: ${tls}
     mux: false
     skip-cert-verify: true
@@ -1040,7 +1042,7 @@ function generateClashVMess(name, uuid, domain, host, sni, proxyHost, proxyPort,
   servername: ${sni}
   network: ws
   ws-opts:
-    path: /${proxyHost}-${proxyPort}
+    path: /${PATH_PREFIX}/${proxyHost}-${proxyPort}
     headers:
       Host: ${host}
   udp: true`;
@@ -1066,7 +1068,7 @@ function generateSingboxConfig(name, uuid, domain, host, sni, proxyHost, proxyPo
       },
       "transport": {
         "type": "ws",
-        "path": "/${proxyHost}-${proxyPort}",
+        "path": "/${PATH_PREFIX}/${proxyHost}-${proxyPort}",
         "headers": {
           "Host": "${host}"
         },
@@ -1090,7 +1092,7 @@ function generateSingboxConfig(name, uuid, domain, host, sni, proxyHost, proxyPo
       },
       "transport": {
         "type": "ws",
-        "path": "/${proxyHost}-${proxyPort}",
+        "path": "/${PATH_PREFIX}/${proxyHost}-${proxyPort}",
         "headers": {
           "Host": "${host}"
         },
@@ -1112,7 +1114,7 @@ function generateSingboxConfig(name, uuid, domain, host, sni, proxyHost, proxyPo
       },
       "transport": {
         "type": "ws",
-        "path": "/${proxyHost}-${proxyPort}",
+        "path": "/${PATH_PREFIX}/${proxyHost}-${proxyPort}",
         "headers": {
           "Host": "${host}"
         },
@@ -1128,7 +1130,7 @@ function generateSingboxConfig(name, uuid, domain, host, sni, proxyHost, proxyPo
       "method": "none",
       "password": "${uuid}",
       "plugin": "v2ray-plugin",
-      "plugin_opts": "mux=0;path=/${proxyHost}-${proxyPort};host=${host};tls=${tls ? '1' : '0'}"
+      "plugin_opts": "mux=0;path=/${PATH_PREFIX}/${proxyHost}-${proxyPort};host=${host};tls=${tls ? '1' : '0'}"
     }`;
     }
     
@@ -1155,7 +1157,7 @@ function generateSingboxxlConfig(name, uuid, domain, host, sni, proxyHost, proxy
       },
       "transport": {
         "type": "ws",
-        "path": "/${proxyHost}-${proxyPort}",
+        "path": "/${PATH_PREFIX}/${proxyHost}-${proxyPort}",
         "headers": {
           "Host": "${host}"
         }
@@ -1178,7 +1180,7 @@ function generateSingboxxlConfig(name, uuid, domain, host, sni, proxyHost, proxy
       },
       "transport": {
         "type": "ws",
-        "path": "/${proxyHost}-${proxyPort}",
+        "path": "/${PATH_PREFIX}/${proxyHost}-${proxyPort}",
         "headers": {
           "Host": "${host}"
         }
@@ -1199,7 +1201,7 @@ function generateSingboxxlConfig(name, uuid, domain, host, sni, proxyHost, proxy
       },
       "transport": {
         "type": "ws",
-        "path": "/${proxyHost}-${proxyPort}",
+        "path": "/${PATH_PREFIX}/${proxyHost}-${proxyPort}",
         "headers": {
           "Host": "${host}"
         }
@@ -1215,7 +1217,7 @@ function generateSingboxxlConfig(name, uuid, domain, host, sni, proxyHost, proxy
       "method": "none",
       "password": "${uuid}",
       "plugin": "v2ray-plugin",
-      "plugin_opts": "mux=0;path=/${proxyHost}-${proxyPort};host=${host};tls=${tls ? '1' : '0'}"
+      "plugin_opts": "mux=0;path=/${PATH_PREFIX}/${proxyHost}-${proxyPort};host=${host};tls=${tls ? '1' : '0'}"
     }`;
     }
     
@@ -1247,7 +1249,7 @@ function generateNekoboxConfig(name, uuid, domain, host, sni, proxyHost, proxyPo
           "Host": "${host}"
         },
         "max_early_data": 0,
-        "path": "/${proxyHost}-${proxyPort}",
+        "path": "/${PATH_PREFIX}/${proxyHost}-${proxyPort}",
         "type": "ws"
       },
       "type": "vless",
@@ -1271,7 +1273,7 @@ function generateNekoboxConfig(name, uuid, domain, host, sni, proxyHost, proxyPo
           "Host": "${host}"
         },
         "max_early_data": 0,
-        "path": "/${proxyHost}-${proxyPort}",
+        "path": "/${PATH_PREFIX}/${proxyHost}-${proxyPort}",
         "type": "ws"
       },
       "type": "trojan"
@@ -1311,7 +1313,7 @@ function generateNekoboxConfig(name, uuid, domain, host, sni, proxyHost, proxyPo
       "method": "none",
       "password": "${uuid}",
       "plugin": "v2ray-plugin",
-      "plugin_opts": "mux=0;path=/${proxyHost}-${proxyPort};host=${host};tls=${tls ? '1' : '0'}"
+      "plugin_opts": "mux=0;path=/${PATH_PREFIX}/${proxyHost}-${proxyPort};host=${host};tls=${tls ? '1' : '0'}"
     }`;
     }
     
@@ -1336,7 +1338,7 @@ function generatehusiConfig(name, uuid, domain, host, sni, proxyHost, proxyPort,
       },
       "transport": {
         "type": "ws",
-        "path": "/${proxyHost}-${proxyPort}",
+        "path": "/${PATH_PREFIX}/${proxyHost}-${proxyPort}",
         "headers": {
           "Host": "${host}"
         },
@@ -1360,7 +1362,7 @@ function generatehusiConfig(name, uuid, domain, host, sni, proxyHost, proxyPort,
       },
       "transport": {
         "type": "ws",
-        "path": "/${proxyHost}-${proxyPort}",
+        "path": "/${PATH_PREFIX}/${proxyHost}-${proxyPort}",
         "headers": {
           "Host": "${host}"
         },
@@ -1382,7 +1384,7 @@ function generatehusiConfig(name, uuid, domain, host, sni, proxyHost, proxyPort,
       },
       "transport": {
         "type": "ws",
-        "path": "/${proxyHost}-${proxyPort}",
+        "path": "/${PATH_PREFIX}/${proxyHost}-${proxyPort}",
         "headers": {
           "Host": "${host}"
         },
@@ -1398,7 +1400,7 @@ function generatehusiConfig(name, uuid, domain, host, sni, proxyHost, proxyPort,
       "method": "none",
       "password": "${uuid}",
       "plugin": "v2ray-plugin",
-      "plugin_opts": "mux=0;path=/${proxyHost}-${proxyPort};host=${host};tls=${tls ? '1' : '0'}"
+      "plugin_opts": "mux=0;path=/${PATH_PREFIX}/${proxyHost}-${proxyPort};host=${host};tls=${tls ? '1' : '0'}"
     }`;
     }
     
@@ -2629,7 +2631,6 @@ else if (formatType === 'husi') {
         throw error;
     }
 }
-    
     // UI Interaction
     document.addEventListener('DOMContentLoaded', () => {
         // Populate regions from GitHub when the page loads
